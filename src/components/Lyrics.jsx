@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const lyrics = ({ lyrics, artist, song }) => {
+const Lyrics = ({ lyrics, artist, song }) => {
 
+    const [showMore, setShowMore] = useState(false);
     return (
         <section className='text-center'>
-            {artist && <h2>{`${song.toUpperCase()} by ${artist.toUpperCase()}`}</h2>}
-            {lyrics && <pre>{lyrics.lyrics.substring(0, 200)}</pre>}
+            {artist && <div>
+                <h2>{`${song.toUpperCase()} by ${artist.toUpperCase()}`}</h2>
+                <pre>{!showMore ? lyrics.lyrics.substring(0, 200) : lyrics.lyrics}</pre>
+                <button onClick={() => setShowMore(!showMore)} className='btn btn-outline-dark' type='button'>
+                    {showMore ? 'Show less' : 'Show more'}
+                </button>
+            </div>
+            }
         </section>
     )
 }
 
-export default lyrics;
+export default Lyrics;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Search from './components/Search';
 import Lyrics from './components/Lyrics';
 import Loading from './components/Loading';
@@ -9,7 +9,6 @@ function App() {
   const [userInput, setUserInput] = useState({ artist: '', song: '' })
   const [lyrics, setLyrics] = useState('');
   const [loading, setLoading] = useState(false);
-  const [readMore, setReadMore] = useState(false);
 
   const handleSearchAction = (artist, song) => {
     setUserInput({ artist: artist, song: song });
