@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Search from './components/Search';
-import TopBar from './components/TopBar';
 import Lyrics from './components/Lyrics';
+import Loading from './components/Loading';
 
 const url = 'https://api.lyrics.ovh/v1/';
 
 function App() {
   const [userInput, setUserInput] = useState({ artist: '', song: '' })
   const [lyrics, setLyrics] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [readMore, setReadMore] = useState(false);
 
   const handleSearchAction = (artist, song) => {
     setUserInput({ artist: artist, song: song });
@@ -18,21 +20,25 @@ function App() {
 
 
   const fetchLyrics = async (artistInput, songInput) => {
-    const response = await fetch(`https://api.lyrics.ovh/v1/${artistInput}/${songInput}`);
-    const lyrics = await response.json();
-    setLyrics(lyrics);
-    console.log(lyrics);
+    setLoading(true);
+    try {
+      const response = await fetch(`${url}/${artistInput}/${songInput}`);
+      const lyrics = await response.json();
+      setLyrics(lyrics);
+      setLoading(false);
+      console.log(lyrics);
+
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   return (
     <React.Fragment>
-      <header>
-        <TopBar />
-      </header>
 
       <main className='container'>
         <Search handleSearchAction={handleSearchAction} />
-        <Lyrics lyrics={lyrics}/>
+        {loading ? <Loading /> : <Lyrics lyrics={lyrics} {...userInput} />}
       </main>
     </React.Fragment>
   );

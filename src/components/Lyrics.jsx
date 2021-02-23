@@ -1,13 +1,12 @@
 import React from 'react';
-// import Lyrics from './components/Lyrics'
 
-const lyrics = ({ lyrics }) => {
-    console.log(lyrics)
+const lyrics = ({ lyrics, artist, song }) => {
+
     return (
-        <div>
-            <h1>Lyrics</h1>
-            {lyrics && <pre>{lyrics.lyrics}</pre>}
-        </div>
+        <section className='text-center'>
+            {artist && <h2>{`${song.toUpperCase()} by ${artist.toUpperCase()}`}</h2>}
+            {lyrics && <pre>{lyrics.lyrics.substring(0, 200)}</pre>}
+        </section>
     )
 }
 
