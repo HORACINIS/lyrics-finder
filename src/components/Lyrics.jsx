@@ -10,11 +10,11 @@ const Lyrics = ({ lyrics, artist, song, errorFound }) => {
         )
     }
     return (
-        <section className='text-center'>
+        <section className='text-center' style={{marginTop:'20px'}}>
             {lyrics && <div>
                 <h2>{`${song.toUpperCase()} by ${artist.toUpperCase()}`}</h2>
-                <pre>{!showMore ? `${lyrics.lyrics.substring(0, 200)}...` : lyrics.lyrics}</pre>
-                <button onClick={() => setShowMore(!showMore)} className='btn btn-outline-dark' type='button'>
+                <pre style={{fontSize:'1em', marginTop:'20px'}} >{!showMore ? `${lyrics.lyrics.substring(0, 200)}...` : lyrics.lyrics}</pre>
+                <button style={{marginBottom:'30px'}} onClick={() => setShowMore(!showMore)} className='btn btn-outline-dark' type='button'>
                     {showMore ? 'Show less' : 'Show more'}
                 </button>
             </div>
