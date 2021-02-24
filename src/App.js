@@ -21,7 +21,7 @@ function App() {
     setLoading(true);
     try {
 
-      const response = await fetch(`${url}/${artistInput}/${songInput}`, { mode: 'no-cors' });
+      const response = await fetch(`${url}/${artistInput}/${songInput}`);
       const lyrics = await response.json();
       setLyrics(lyrics);
       setLoading(false);
