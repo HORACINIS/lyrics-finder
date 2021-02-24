@@ -11,6 +11,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState({});
   const [errorFound, setErrorFound] = useState(false);
+  // const [logoColour, setLogoColour] = useState()
 
   const handleSearchAction = (givenArtist, givenSong) => {
     if (givenSong === '' || givenSong === '') {
@@ -19,18 +20,19 @@ function App() {
     } else {
       setUserInput({ artist: givenArtist, song: givenSong });
       fetchLyrics(givenArtist, givenSong);
-
     }
   }
 
-
-
-  const fetchLyrics = async (artistInput, songInput) => {
+  const fetchLyrics = async (artistInput, songInput, options) => {
     setLoading(true);
+    console.log(options)
     try {
 
       const response = await fetch(`${cors}${url}/${artistInput}/${songInput}`);
-      console.log(response.status)
+      console.log(response.status);
+      console.log(response)
+      console.log(response.ok)
+
       const lyrics = await response.json();
       setLyrics(lyrics);
       setLoading(false);
@@ -38,11 +40,12 @@ function App() {
       console.log(lyrics);
 
     } catch (error) {
-      // alert('Error y la CTM!' + error.message);
+      console.log(error)
       setLoading(false);
       setErrorFound(true);
     }
   }
+
 
 
   return (
