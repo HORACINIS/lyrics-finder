@@ -32,16 +32,16 @@ function App() {
 
   const fetchLyrics = async (artistInput, songInput) => {
     setLoading(true);
+    setErrorFound(false);
+    setNoConnection(false);
     try {
       const response = await fetch(`${cors}${url}/${artistInput}/${songInput}`);
-      console.log(response.status)
-      console.log(response)
+      // console.log(response.status)
+      // console.log(response)
       if (response.status === 200) {
         const lyrics = await response.json();
         setLyrics(lyrics);
         setLoading(false);
-        setErrorFound(false);
-        setNoConnection(false);
         setLogoColour(soundWaveGreen);
         console.log(lyrics);
       } else if (response.status === 404) {
@@ -50,7 +50,7 @@ function App() {
         setErrorFound(true);
       }
     } catch (e) {
-      console.log(e.message)
+      // console.log(e.message)
       setLoading(false);
       setNoConnection(true);
       setLogoColour(soundWaveRed);
