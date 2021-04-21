@@ -16,6 +16,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState({});
   const [errorFound, setErrorFound] = useState(false);
+  const [noConnection, setNoConnection] = useState(false);
   const [logoColour, setLogoColour] = useState(soundWave);
 
   const handleSearchAction = (givenArtist, givenSong) => {
@@ -40,6 +41,7 @@ function App() {
         setLyrics(lyrics);
         setLoading(false);
         setErrorFound(false);
+        setNoConnection(false);
         setLogoColour(soundWaveGreen);
         console.log(lyrics);
       } else if (response.status === 404) {
@@ -50,8 +52,8 @@ function App() {
     } catch (e) {
       console.log(e.message)
       setLoading(false);
+      setNoConnection(true);
       setLogoColour(soundWaveRed);
-      setErrorFound(true);
     }
   }
 
@@ -60,7 +62,7 @@ function App() {
       <TopBar logoColour={logoColour} />
       <main className='container'>
         <Search handleSearchAction={handleSearchAction} />
-        {loading ? <Loading /> : <Lyrics lyrics={lyrics} {...userInput} errorFound={errorFound} />}
+        {loading ? <Loading /> : <Lyrics lyrics={lyrics} {...userInput} errorFound={errorFound} noConnection={noConnection} />}
       </main>
     </React.Fragment>
   );
