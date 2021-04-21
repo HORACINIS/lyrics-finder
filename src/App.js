@@ -31,16 +31,24 @@ function App() {
 
   const fetchLyrics = async (artistInput, songInput) => {
     setLoading(true);
-    const response = await fetch(`${cors}${url}/${artistInput}/${songInput}`);
-    console.log(response.status)
-    if (response.status === 200) {
-      const lyrics = await response.json();
-      setLyrics(lyrics);
-      setLoading(false);
-      setErrorFound(false);
-      setLogoColour(soundWaveGreen);
-      console.log(lyrics);
-    } else {
+    try {
+      const response = await fetch(`${cors}${url}/${artistInput}/${songInput}`);
+      console.log(response.status)
+      console.log(response)
+      if (response.status === 200) {
+        const lyrics = await response.json();
+        setLyrics(lyrics);
+        setLoading(false);
+        setErrorFound(false);
+        setLogoColour(soundWaveGreen);
+        console.log(lyrics);
+      } else if (response.status === 404) {
+        setLoading(false);
+        setLogoColour(soundWaveRed);
+        setErrorFound(true);
+      }
+    } catch (e) {
+      console.log(e.message)
       setLoading(false);
       setLogoColour(soundWaveRed);
       setErrorFound(true);
