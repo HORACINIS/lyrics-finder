@@ -20,7 +20,7 @@ function App() {
 
   const handleSearchAction = (givenArtist, givenSong) => {
     setLogoColour(soundWave);
-    if (givenSong === '' || givenSong === '') {
+    if (givenArtist.replace(/\s/g, "") === "" || givenSong.replace(/\s/g, "") === "") {
       alert('Enter both an artist and a song!');
       setLoading(false);
     } else {
@@ -31,17 +31,16 @@ function App() {
 
   const fetchLyrics = async (artistInput, songInput) => {
     setLoading(true);
-    try {
-      const response = await fetch(`${cors}${url}/${artistInput}/${songInput}`);
-
+    const response = await fetch(`${cors}${url}/${artistInput}/${songInput}`);
+    console.log(response.status)
+    if (response.status === 200) {
       const lyrics = await response.json();
       setLyrics(lyrics);
       setLoading(false);
       setErrorFound(false);
       setLogoColour(soundWaveGreen);
       console.log(lyrics);
-
-    } catch (error) {
+    } else {
       setLoading(false);
       setLogoColour(soundWaveRed);
       setErrorFound(true);
